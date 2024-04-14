@@ -137,3 +137,4 @@ if (selected == 'Predict'):
 
 if (selected == 'Clustering'):
     st.title('Clustering!')
+    clustering(df3)
