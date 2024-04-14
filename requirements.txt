@@ -1,0 +1,9 @@
+streamlit
+pandas
+plotly-express
+matplotlib
+seaborn
+numpy
+scikit-learn
+streamlit-option-menu
+googletrans==4.0.0-rc1
