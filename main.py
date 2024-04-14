@@ -85,6 +85,40 @@ def predict(df):
         else :
             st.write('not defined')
 
+def clustering(df):
+    case_material = st.selectbox('Select Case Material',[i for i in df['Case Material'].unique()])
+    strap_material = st.selectbox('Select Strap Material',[i for i in df['Strap Material'].unique()])
+    movement_type = st.selectbox('Select Movement Type',[i for i in df['Movement Type'].unique()])
+    dial_color = st.selectbox('Select Dial Color',[i for i in df['Dial Color'].unique()])
+    crystal_material = st.selectbox('Select Crystal Material',[i for i in df['Crystal Material'].unique()])
+    price = st.number_input('Input Price',0,40000)
+    price_category = st.selectbox('Select Price Category',[i for i in df['Movement Type'].unique()])
+    water = st.number_input('Input Water Resistance',30,2000)
+    button = st.button('Clustering!')
+
+    if button:
+        # Membuat DataFrame baru dari input pengguna
+        data = pd.DataFrame({
+            'Case Material': [case_material],
+            'Strap Material': [strap_material],
+            'Movement Type': [movement_type],
+            'Dial Color': [dial_color],
+            'Crystal Material': [crystal_material],
+            'Price (USD)': [price],
+            'Price Category': [price_category],
+            'Water Resistance (m)': [water]
+        })
+
+        # Memuat model KMeans
+        with open('kmeans.pkl', 'rb') as file:
+            loaded_model = pickle.load(file)
+        
+        # Melakukan prediksi klaster
+        cluster_prediction = loaded_model.predict(data)
+
+        st.write(f'Predicted Cluster: {cluster_prediction[0]}')
+
+
 if (selected == 'Introducing'):
     st.title('Analisis Penjualan Jam Tangan Mewah')
     st.subheader('Tabel Data Jam Mewah')
